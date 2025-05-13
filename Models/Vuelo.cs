@@ -1,14 +1,14 @@
 using MongoDB.Bson.Serialization.Attributes;
 
 public class Vuelo {
-    [BsonId, BsonRepresentation(MongoSB.Bson.BsonType.ObjectId)]
+    [BsonId, BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
 
     public string? Id { get; set; }
 
     [BsonElement("pais_origen")]
     public string PaísOrigen {get; set;} = string.Empty;
 
-    [BsonElement("cuidad_origen")]
+    [BsonElement("ciudad_origen")]
     public string CiudadOrigen {get;set;} = string.Empty;
     
     [BsonElement("aeropuerto_origen")]
