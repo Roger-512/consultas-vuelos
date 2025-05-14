@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import ListadoVuelos from "./ListadoVuelos";
 type Ciudad = {
     Nombre: string
@@ -13,11 +14,12 @@ const BuscadorVuelos = () => {
     const [listaEstatus, setListaEstatus] = useState<EstatusVuelo[]>([]);
 
     const listarCiudadesOrigen = async () => {
-        const response = await fetch("https://localhost:500/api/vuelos/ciudades-origen");
+        const response = await fetch("http://localhost:5000/api/vuelos/ciudades-origen");
         if (response.ok){
             const arr = await response.json();
             let ciudades : Array<Ciudad> = [];
-            arr.map((x: Ciudad) => ciudades.push({Nombre: x}));
+            arr.map((x: string) => ciudades.push({Nombre: x}));
+            setCiudadesOrigen(arr);
         }
 
     }
@@ -50,7 +52,12 @@ const BuscadorVuelos = () => {
                     <div className="col-sm-4">
                         <div className="mb-3">
                             <label>Origen</label>
-                            <select className="form-control"></select>
+                            <select className="form-control">
+                                <option value="">(Seleccione)</option>
+                                {
+                                    ciudadesOrigen.map(x => <option key={x.Nombre} value={x.Nombre}>{x.Nombre}</option>)
+                                }
+                            </select>
                         </div>
                     </div>
 
@@ -85,11 +92,3 @@ const BuscadorVuelos = () => {
 }
 
 export default BuscadorVuelos;
-
-function useState<T>(arg0: never[]): [any, any] {
-    throw new Error("Function not implemented.");
-}
-function useEffect(arg0: () => any, arg1: never[]) {
-    throw new Error("Function not implemented.");
-}
-
