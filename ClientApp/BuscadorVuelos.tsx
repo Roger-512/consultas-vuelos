@@ -84,7 +84,24 @@ const BuscadorVuelos = () => {
 
     const listarVuelos =async () =>{
         let url = "http://localhost:5000/api/vuelos/listar-vuelos";
-        let parametros : srting[] = [];
+        let parametros : string[] = [];
+        if (estatus){
+            parametros.push("estatus="+ estatus);
+        }
+
+        if (origen){
+            parametros.push("origen=" + origen);
+        }
+        if (destino){
+            parametros.push("destino=" + destino);
+        }
+        if (fechaInicial){
+            parametros.push("fechaInicial=" + fechaInicial);
+        }
+        if (fechaFinal){
+            parametros.push("fechaFinal=" + fechaFinal);
+        }
+
         if(parametros.length >0){
             url += "?"
             url += parametros.join("&");
@@ -113,21 +130,21 @@ const BuscadorVuelos = () => {
                     <div className="col-sm-6">
                         <div className="mb-3">
                             <label>Fecha Inicial</label>
-                            <input type="date" className="form-control" />
+                            <input type="date" className="form-control" value={fechaInicial} onChange={(e) => setFechaInicial(e.target.value)}/>
                         </div>
                     </div>
 
                     <div className="col-sm-6">
                         <div className="mb-3">
                             <label>Fecha Final</label>
-                            <input type="date" className="form-control" />
+                            <input type="date" className="form-control" value={fechaFinal} onChange={(e) => setFechaFinal(e.target.value)}/>
                         </div>
                     </div>
 
                     <div className="col-sm-4">
                         <div className="mb-3">
                             <label>Origen</label>
-                            <select className="form-control">
+                            <select className="form-control" value={origen} onChange= {(e)=> setOrigen(e.target.value)}>
                                 <option value="">(Seleccione)</option>
 
                                 <option value="">(Todos)</option>
@@ -141,7 +158,7 @@ const BuscadorVuelos = () => {
                     <div className="col-sm-4">
                         <div className="mb-3">
                             <label>Destino</label>
-                            <select className="form-control">
+                            <select className="form-control"value={destino} onChange= {(e)=> setDestino(e.target.value)}>
                                 <option value="">(Todos)</option>
                                 {
                                     ciudadesDestino.map(x => <option key={x.Nombre} value= {x.Nombre}>{x.Nombre}</option>)
